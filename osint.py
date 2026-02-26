@@ -482,11 +482,21 @@ def main_menu():
             print_error("Неверный выбор")
             input("Enter...")
 
-
+def fix_deps():
+    try:
+        import requests
+        import urllib3
+    except:
+        print("Исправление зависимостей..")
+        os.system("pip install --force-reinstall --no-cache-dir requests urllib3")
+        import requests
+        import urllib3
+    return True
 # ============================================================================
 # ЗАПУСК
 # ============================================================================
 if __name__ == "__main__":
+        fix_deps()
     required = ['phonenumbers', 'colorama', 'requests']
     missing = [pkg for pkg in required if not __import__(pkg, fromlist=[''])]
     
@@ -504,3 +514,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"{Colors.RED} Ошибка: {e}{Colors.RESET}")
         sys.exit(1)
+
